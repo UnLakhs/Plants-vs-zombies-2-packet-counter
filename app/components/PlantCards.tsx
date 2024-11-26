@@ -22,7 +22,7 @@ const PlantCards = async () => {
       {plantData.map((plant) => (
         <div className="mb-4 rounded-md shadow-xl shadow-gray-800 p-3 bg-green-500 flex flex-col gap-2 items-center justify-center" key={plant._id}>
           <h2 className="text-2xl font-bold">{plant.plantName}</h2>
-          <div className="w-36 h-32 relative">
+          <div className="w-24 h-24 relative">
             <img
                 src={`/assets/images/${plant.image}`}
                 alt={`${plant.plantName} image`}
