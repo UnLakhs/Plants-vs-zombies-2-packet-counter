@@ -5,12 +5,11 @@ import { Plant } from "./PlantCards";
 const AddSeedPackets = () => {
   const [plantName, setPlantName] = useState("");
   const handlePlantNameChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setPlantName(event.target.value);
   };
   const [plantNameList, setPlantNameList] = useState<Plant[]>([]);
-  console.log(plantNameList);
 
   useEffect(() => {
     const fetchPlants = async () => {
@@ -61,22 +60,22 @@ const AddSeedPackets = () => {
           >
             Plant Name:
           </label>
-          <select
+          <input
             id="plantName"
             name="plantName"
             value={plantName}
             onChange={handlePlantNameChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             required
-          >
-            <option value=""></option>
+          />
+            {/* <option value=""></option> */}
             {/* Add your plant options here */}
-            {plantNameList.map((plant) => (
+            {/* {plantNameList.map((plant) => (
               <option key={plant.plantName} value={plant.plantName}>
                 {plant.plantName}
               </option>
-            ))}            
-          </select>
+            ))}*/}
+          
         </div>
 
         <div className="mb-4">
