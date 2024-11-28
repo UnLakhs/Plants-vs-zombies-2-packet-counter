@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Plant } from "./PlantCards";
+import { Plant } from "../Constants/constants";
+
 
 const AddSeedPackets = () => {
   const [plantName, setPlantName] = useState("");

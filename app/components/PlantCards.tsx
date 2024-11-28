@@ -1,10 +1,4 @@
-export interface Plant {
-  _id: string;
-  plantName: string;
-  packets: number;
-  totalPackets: number;
-  image: string;
-}
+import { Plant } from "../Constants/constants";
 
 const fetchPlantData = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/data`, {
@@ -20,16 +14,21 @@ const PlantCards = async () => {
   return (
     <div className="grid grid-cols-5 gap-6">
       {plantData.map((plant) => (
-        <div className="mb-4 rounded-md shadow-xl shadow-gray-800 p-3 bg-green-500 flex flex-col gap-2 items-center justify-center" key={plant._id}>
+        <div
+          className="mb-4 rounded-md shadow-xl shadow-gray-800 p-3 bg-green-500 flex flex-col gap-2 items-center justify-center"
+          key={plant._id}
+        >
           <h2 className="text-2xl font-bold">{plant.plantName}</h2>
           <div className="w-24 h-24 relative">
             <img
-                src={`/assets/images/${plant.image}`}
-                alt={`${plant.plantName} image`}
-                className="w-full h-full absolute"
+              src={`/assets/images/${plant.image}`}
+              alt={`${plant.plantName} image`}
+              className="w-full h-full absolute"
             />
           </div>
-          <span className="text-xl font-semibold">Total Packets: {plant.totalPackets}</span>
+          <span className="text-xl font-semibold">
+            Total Packets: {plant.totalPackets}
+          </span>
         </div>
       ))}
     </div>
