@@ -1,7 +1,7 @@
 export interface Plant {
     _id: string;
     plantName: string;
-    packets: number;
+    packets?: number;
     totalPackets: number;
     image: string;
   }

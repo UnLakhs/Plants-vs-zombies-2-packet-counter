@@ -1,10 +1,11 @@
 import { Plant } from "../Constants/constants";
 
 const fetchPlantData = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/data`, {
+  const res = await fetch(`http://localhost:3000/api/data`, {
     method: "GET",
   });
   const data = await res.json();
+  console.log(data)
   return data;
 };
 
