@@ -1,20 +1,23 @@
 import { Plant } from "../Constants/constants";
+interface plantCardsProps {
+  plants: Plant[];
+}
 
-const fetchPlantData = async () => {
-  const res = await fetch(`http://localhost:3000/api/data`, {
-    method: "GET",
-  });
-  const data = await res.json();
-  console.log(data)
-  return data;
-};
 
-const PlantCards = async () => {
-  const plantData: Plant[] = await fetchPlantData();
+// const fetchPlantData = async () => {
+//   const res = await fetch(`http://localhost:3000/api/data`, {
+//     method: "GET",
+//   });
+//   const data = await res.json();
+//   return data;
+// };
+
+const PlantCards = ({plants}: plantCardsProps) => {
+  // const plantData: Plant[] = await fetchPlantData();
 
   return (
     <div className="grid grid-cols-5 gap-6">
-      {plantData.map((plant) => (
+      {plants?.map((plant) => (
         <div
           className="mb-4 rounded-md shadow-xl shadow-gray-800 p-3 bg-green-500 flex flex-col gap-2 items-center justify-center"
           key={plant._id}
