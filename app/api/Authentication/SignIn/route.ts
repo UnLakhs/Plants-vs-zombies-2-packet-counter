@@ -21,18 +21,25 @@ export async function POST(request: Request) {
     }
 
     const jwtSecret = process.env.JWT_SECRET;
-    console.log(jwtSecret);
     if (!jwtSecret) {
       throw new Error("JWT_SECRET is not defined");
     }
 
     const token = jwt.sign(
-      { id: user._id, username: user.username },
+      { id: user._id, username: user.username, isAdmin: user.isAdmin },
       jwtSecret,
       { expiresIn: "1h" }
     );
 
-    return NextResponse.json({ token });
+    const response = NextResponse.json({ success: true });
+    response.cookies.set("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict",
+      maxAge: 3600,
+      path: "/",
+    })
+    return response;
   } catch (error) {
     return NextResponse.json(
       { error: "internal server error" },

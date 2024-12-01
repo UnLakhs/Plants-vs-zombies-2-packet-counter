@@ -15,8 +15,6 @@ const addPlantData = () => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const plantName = formData.get("plantName");
-    const packets = formData.get("packets");
-    const totalPackets = formData.get("totalPackets");
     const image = formData.get("image");
 
     try {
@@ -27,14 +25,12 @@ const addPlantData = () => {
         },
         body: JSON.stringify({
           plantName,
-          packets,
-          totalPackets,
           image,
         }),
       });
       if (response.ok) {
         alert("Data added");
-        console.log(`plantName: ${plantName}, packets: ${packets}, totalPackets: ${totalPackets}, image: ${image}`);
+        console.log(`plantName: ${plantName}, image: ${image}`);
       } else {
         alert("Failed to insert data");
       }
@@ -56,30 +52,6 @@ const addPlantData = () => {
             id="plantName"
             onChange={handlePlantNameChange}
             value={plantName}
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="packets" className="block font-bold mb-2">
-            Number of Packets:
-          </label>
-          <input
-            type="number"
-            id="packets"
-            name="packets"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="totalPackets" className="block font-bold mb-2">
-            Total Number of Packets:
-          </label>
-          <input
-            type="number"
-            id="totalPackets"
-            name="totalPackets"
             className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
             required
           />

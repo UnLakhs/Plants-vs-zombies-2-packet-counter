@@ -7,7 +7,7 @@ export async function GET(
 ) {
   try {
     const client = await clientPromise;
-    const db = await client.db("Pvz2");
+    const db = client.db("Pvz2");
     const plantName = params.plantName;
     const plant = await db.collection("plants").findOne({ name: plantName });
     return new Response(JSON.stringify(plant));
@@ -22,10 +22,10 @@ export async function GET(
 export async function POST(request: Request) {
   try {
     const client = await clientPromise;
-    const db = await client.db("Pvz2");
+    const db = client.db("Pvz2");
     const data = await request.json();
 
-    const { plantName, packets, totalpackets, image } = data;
+    const { plantName, image } = data;
 
     const existingPlant = await db
       .collection("plants")
@@ -40,8 +40,6 @@ export async function POST(request: Request) {
     //Insert new plant
     await db.collection("plants").insertOne({
       plantName: plantName,
-      packets: Number(packets),
-      totalPackets: Number(packets),
       image: image,
     });
 
