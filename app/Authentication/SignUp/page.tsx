@@ -36,7 +36,7 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch(`/api/Authentication`, {
+      const response = await fetch(`/api/Authentication/SignUp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

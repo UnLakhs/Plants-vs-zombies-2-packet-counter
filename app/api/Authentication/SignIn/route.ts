@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/app/lib/mongodb";
-import crypto from "crypto";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export async function POST(request: Request) {
@@ -15,15 +15,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const isPasswordValid = await crypto.timingSafeEqual(
-      Buffer.from(password),
-      Buffer.from(user.password)
-    );
+    const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return NextResponse.json({ error: "Wrong Password" }, { status: 401 });
     }
 
     const jwtSecret = process.env.JWT_SECRET;
+    console.log(jwtSecret);
     if (!jwtSecret) {
       throw new Error("JWT_SECRET is not defined");
     }

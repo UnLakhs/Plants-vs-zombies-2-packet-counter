@@ -21,6 +21,9 @@ const Home = () => {
       <h1 className="text-3xl font-bold">Welcome to Seed packet counter!</h1>
 
       <AddSeedPackets />
+      <div className="p-2 bg-blue-500 rounded-full text-white">
+        <Link href={`/Authentication/Login`}>Log in</Link>
+      </div>
       <Search />
     </div>
   );

@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { inputStyles } from "@/app/Constants/constants";
+import Link from "next/link";
+import { redirect } from "next/dist/server/api-utils";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -30,7 +32,7 @@ const Login = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch(`/api/Authentication`, {
+      const response = await fetch(`/api/Authentication/SignIn`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +42,8 @@ const Login = () => {
 
       const result = await response.json();
       if (response.ok) {
-        alert("User created successfully!");
+        alert("User logged in successfully!");
+        window.location.href = "/";
       } else {
         setErrorMessage(result.error || "User creation failed.");
       }
@@ -49,7 +52,6 @@ const Login = () => {
       setErrorMessage("An error occurred. Please try again.");
     }
   };
-
   return (
     <div className="flex justify-center text-center h-screen">
       <form onSubmit={handleSubmit} className="shadow-xl shadow-green-600">
@@ -89,9 +91,10 @@ const Login = () => {
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          Sign Up
+          Log in
         </button>
       </form>
+      <Link href={"/Authentication/SignUp"}>Don't have an account? Sign Up!</Link>
     </div>
   );
 };

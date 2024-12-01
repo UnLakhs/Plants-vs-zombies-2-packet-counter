@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/app/lib/mongodb";
-import crypto from "crypto";
-
-const client = await clientPromise;
-const db = client.db("Pvz2");
-const userCollection = db.collection("users");
+import bcrypt from "bcrypt";
 
 export async function POST(request: Request) {
   try {
+    const client = await clientPromise;
+    const db = client.db("Pvz2");
+    const userCollection = db.collection("users");
+
     const data = await request.json();
     const { username, email, password } = data;
 
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const hashedPassword = await crypto.createHash("sha256").update(password).digest("hex");
+    const hashedPassword = await bcrypt.hash(password, 10); // Hash the password (10 is the salt rounds)
 
     await userCollection.insertOne({
       username,
