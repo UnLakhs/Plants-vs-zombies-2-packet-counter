@@ -1,5 +1,8 @@
+//Utilities
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
+
+//Components
 import AddSeedPackets from "./components/AddSeedPackets";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +17,7 @@ const Home = async () => {
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
     if (token && JWT_SECRET) {
-      const decodedToken: any = jwt.verify(token, JWT_SECRET);
+      const decodedToken = jwt.verify(token, JWT_SECRET) as { isAdmin: boolean };
       console.log("decodedToken:", decodedToken);
       isAdmin = decodedToken.isAdmin;
     }

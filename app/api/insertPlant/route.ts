@@ -1,25 +1,25 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/app/lib/mongodb";
 
-export async function GET(
-  request: Request,
-  { params }: { params: { plantName: string } }
-) {
-  try {
-    const client = await clientPromise;
-    const db = client.db("Pvz2");
-    const plantName = params.plantName;
-    const plant = await db.collection("plants").findOne({ name: plantName });
-    return new Response(JSON.stringify(plant));
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to fetch data" },
-      { status: 500 }
-    );
-  }
-}
+// export async function GET(
+//   request: NextRequest,
+//   { params }: { params: { plantName: string } }
+// ) {
+//   try {
+//     const client = await clientPromise;
+//     const db = client.db("Pvz2");
+//     const plantName = params.plantName;
+//     const plant = await db.collection("plants").findOne({ name: plantName });
+//     return new Response(JSON.stringify(plant));
+//   } catch (error) {
+//     return NextResponse.json(
+//       { error: "Failed to fetch data" },
+//       { status: 500 }
+//     );
+//   }
+// }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const client = await clientPromise;
     const db = client.db("Pvz2");
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Plant data inserted successfully" });
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to insert plant data" },
+      { error: error },
       { status: 500 }
     );
   }

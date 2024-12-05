@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { inputStyles } from "@/app/Constants/constants";
 import Link from "next/link";
-import { redirect } from "next/dist/server/api-utils";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -94,7 +93,7 @@ const Login = () => {
           Log in
         </button>
       </form>
-      <Link href={"/Authentication/SignUp"}>Don't have an account? Sign Up!</Link>
+      <Link href={"/Authentication/SignUp"}>Don&apos;t have an account? Sign Up!</Link>
     </div>
   );
 };

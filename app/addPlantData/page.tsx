@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-const addPlantData = () => {
+const AddPlantData = () => {
   const [plantName, setPlantName] = useState("");
   const handlePlantNameChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -82,4 +82,4 @@ const addPlantData = () => {
   );
 };
 
-export default addPlantData;
+export default AddPlantData;

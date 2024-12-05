@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/app/lib/mongodb";
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const client = await clientPromise;
     const db = client.db("Pvz2");
@@ -10,13 +10,13 @@ export async function GET(request: Request) {
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to fetch data" },
+      { error: error },
       { status: 500 }
     );
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const client = await clientPromise;
     const db = client.db("Pvz2");
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     });
 
     if (existingPlant) {
-      const updatedPackets: Number =
+      const updatedPackets: number =
         (existingPlant.totalPackets || 0) + Number(data.packets);
       await plantCollection.updateOne(
         { _id: existingPlant._id },
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to insert data" },
+      { error: error },
       { status: 500 }
     );
   }
