@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Plant } from "../Constants/constants";
+import { Plant, User } from "../Constants/constants";
 
 const AddSeedPackets = () => {
   const [plantName, setPlantName] = useState("");
+  const [user, setUser] = useState<User | null>(null);
   const [filteredPlantNameList, setFilteredPlantNameList] = useState<Plant[]>(
     []
   );
@@ -20,6 +21,27 @@ const AddSeedPackets = () => {
       return data;
     };
     fetchPlants();
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(`/api/Authentication/Session`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user session", error);
+      }
+    };
+    fetchUser();
   }, []);
 
   const handlePlantNameChange = (
@@ -47,14 +69,18 @@ const AddSeedPackets = () => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
+    console.log(user?.username)
     try {
-      const response = await fetch("/api/data", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `/api/addSeedPackets/${user?.username}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         console.log("Data sent successfully!");
@@ -71,65 +97,63 @@ const AddSeedPackets = () => {
 
   return (
     <div className="flex flex-col items-center mb-6">
-      <form onSubmit={handleSubmit} className="text-black relative w-full max-w-md">
-        <div className="mb-4">
-          <label htmlFor="plantName" className="block font-bold mb-2">
-            Plant Name:
-          </label>
-          <input
-            id="plantName"
-            name="plantName"
-            value={plantName}
-            onChange={handlePlantNameChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-            autoComplete="off"
-            required
-          />
-          {/* Autocomplete dropdown */}
-          {showDropdown && (
-            <ul className="absolute z-10 bg-white border border-gray-300 rounded w-full mt-1 max-h-40 overflow-y-auto">
-              {filteredPlantNameList.map((plant) => (
-                <li
-                  key={plant.plantName}
-                  onClick={() => handleOptionClick(plant.plantName)}
-                  className="px-4 py-2 cursor-pointer hover:bg-gray-100 transition duration-200"
-                >
-                  {plant.plantName}
-                </li>
-              ))}
-            </ul>
-          )}
-          {/* <option value=""></option> */}
-          {/* Add your plant options here */}
-          {/* {plantNameList.map((plant) => (
-              <option key={plant.plantName} value={plant.plantName}>
-                {plant.plantName}
-              </option>
-            ))}*/}
-        </div>
+      {user && (
+        <form
+          onSubmit={handleSubmit}
+          className="text-black relative w-full max-w-md"
+        >
+          <div className="mb-4">
+            <label htmlFor="plantName" className="block font-bold mb-2">
+              Plant Name:
+            </label>
+            <input
+              id="plantName"
+              name="plantName"
+              value={plantName}
+              onChange={handlePlantNameChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              autoComplete="off"
+              required
+            />
+            {/* Autocomplete dropdown */}
+            {showDropdown && (
+              <ul className="absolute z-10 bg-white border border-gray-300 rounded w-full mt-1 max-h-40 overflow-y-auto">
+                {filteredPlantNameList.map((plant) => (
+                  <li
+                    key={plant.plantName}
+                    onClick={() => handleOptionClick(plant.plantName)}
+                    className="px-4 py-2 cursor-pointer hover:bg-gray-100 transition duration-200"
+                  >
+                    {plant.plantName}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
-        <div className="mb-4">
-          <label htmlFor="packets" className="block font-bold mb-2">
-            Number of Packets:
-          </label>
-          <input
-            type="number"
-            id="packets"
-            name="packets"
-            className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
+          <div className="mb-4">
+            <label htmlFor="packets" className="block font-bold mb-2">
+              Number of Packets:
+            </label>
+            <input
+              type="number"
+              id="packets"
+              name="packets"
+              className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
 
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Add Packets
-          </button>
-        </div>
-      </form>
+          <div className="flex items-center justify-between">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Add Packets
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };
