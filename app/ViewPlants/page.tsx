@@ -3,11 +3,12 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
 //Components
-import AddSeedPackets from "./components/AddSeedPackets";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
-import Search from "./components/Search";
-import { User } from "./Constants/constants";
+import AddSeedPackets from "../components/AddSeedPackets";
+import Search from "../components/Search";
+import { User } from "../Constants/constants";
+
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -24,9 +25,9 @@ const getUser = async () => {
   }
 };
 
-const Home = async () => {
+const ViewPlants = async () => {
   const user = await getUser();
-  return user ? (
+  return (
     <div className="flex flex-col items-center h-screen justify-between space-y-4">
       <div className="w-32 h-32 absolute top-16 left-2 z-50">
         <Image
@@ -37,16 +38,11 @@ const Home = async () => {
           className="z-10"
         />
       </div>
-
       <h1 className="text-3xl font-bold">Welcome to Seed packet counter!</h1>
 
-      <AddSeedPackets />
+      <AddSeedPackets />    
       <Search />
-    </div>
-  ) : (
-    <div>
-      <span>You need to be logged in to insert and see seed packets</span>
     </div>
   );
 };
-export default Home;
+export default ViewPlants;

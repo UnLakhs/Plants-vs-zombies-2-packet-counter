@@ -29,7 +29,7 @@ export async function POST(
     // Check if the user exists
     const user = (await db.collection("users").findOne({
       username: username,
-    })) as User | null; // Explicitly type the user as User or null
+    })) as User | null;
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
