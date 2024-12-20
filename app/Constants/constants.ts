@@ -17,6 +17,15 @@ export interface User {
   email: string;
   isAdmin: boolean;
   plant_seeds: Plant[];
+  week_starts: Date;
+  week_ends: Date;
+  weeklyHistory: WeeklyHistory[]; 
+}
+
+export interface WeeklyHistory {
+  weekStart: Date;
+  WeekEnd: Date;
+  collected_seeds: Plant[];
 }
 
 export const inputStyles = `shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline`;
