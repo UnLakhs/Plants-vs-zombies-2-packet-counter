@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Plant } from "../Constants/constants";
+import { Plant, User } from "../Constants/constants";
 import PlantCards from "./PlantCards";
 
 import { CiSearch } from "react-icons/ci";
@@ -8,39 +8,50 @@ import OrderBy from "./OrderBy";
 
 const ViewUserPacketsSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [plantData, setPlantData] = useState<Plant[]>([]);
-  const [filteredPlants, setFilteredPlants] = useState<Plant[]>([]);
   const [order, setOrder] = useState("");
+  const [user, setUser] = useState<User | null>(null);
+  const [filteredPlants, setFilteredPlants] = useState<Plant[]>([]);
+
+
 
   useEffect(() => {
-    const fetchPlantData = async () => {
-      const res = await fetch("api/data", {
-        method: "GET",
-      });
-      const data = await res.json();
-      setPlantData(data);
-      setFilteredPlants(data);
+    const fetchUserFromSession = async () => {
+      try {
+        const res = await fetch(`/api/Authentication/Session`);
+        const data = await res.json();
+  
+        const userResponse = await fetch(`/api/getUser/${data.user.username}`, {
+          method: "GET",
+        });
+        const userData = await userResponse.json();
+  
+        setUser(userData.user);
+      } catch (error) {
+        console.error("Error fetching user data from session:", error);
+      }
     };
-    fetchPlantData();
+    fetchUserFromSession();
   }, []);
 
   //Filter the results
   useEffect(() => {
-    let filtered = plantData.filter((plant) =>
+    if (!user?.plant_seeds) return; // Ensure plant_seeds is available
+
+    let filtered = user?.plant_seeds.filter((plant: Plant) =>
       plant.plantName.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     if (order === "alphabetical") {
-      filtered = filtered.sort((a, b) =>
+      filtered = filtered?.sort((a, b) =>
         a.plantName.localeCompare(b.plantName)
       );
     } else if (order === "packets-desc") {
-      filtered = filtered.sort((a, b) => b.totalPackets - a.totalPackets);
+      filtered = filtered?.sort((a, b) => b.totalPackets - a.totalPackets);
     }
     setFilteredPlants(filtered);
-  }, [searchTerm, plantData, order]);
+  }, [searchTerm, user?.plant_seeds, order]);
 
-  return (
+  return user ? (
     <div className="flex flex-col justify-between">
       <div className="flex items-center mb-4">
         <div className="mr-auto rounded flex py-2 px-3 w-2/3 max-w-sm">
@@ -59,6 +70,10 @@ const ViewUserPacketsSearch = () => {
       </div>
       {/* Render filtered plant cards */}
       <PlantCards plants={filteredPlants} />
+    </div>
+  ) : (
+    <div>
+      <p>Loading...</p>
     </div>
   );
 };

@@ -16,47 +16,67 @@ export async function GET() {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
+    const { plantIds } = await request.json();
     const client = await clientPromise;
     const db = client.db("Pvz2");
-    const plantCollection = db.collection("plants");
-    const data = await request.json();
 
-    if (!data.plantName || !data.packets) {
-      return NextResponse.json(
-        { error: "Missing plant name or packets" },
-        { status: 400 }
-      );
-    }
+    // Fetch all plants with matching IDs
+    const plants = await db
+      .collection("plants")
+      .find({ _id: { $in: plantIds } })
+      .toArray();
 
-    //find the plant that matches the plant name
-    const existingPlant = await plantCollection.findOne({
-      plantName: data.plantName,
-    });
-
-    if (existingPlant) {
-      const updatedPackets: number =
-        (existingPlant.totalPackets || 0) + Number(data.packets);
-      await plantCollection.updateOne(
-        { _id: existingPlant._id },
-        { $set: { totalPackets: updatedPackets } }
-      );
-      return NextResponse.json({ message: "Packets updated successfully" });
-    }
-    //Handle the non-existing plant
-    else {
-      await plantCollection.insertOne({
-        plantName: data.plantName,
-        packets: Number(data.packets),
-        totalPackets: Number(data.packets), // Initialize totalPackets here
-      });
-      return NextResponse.json({ message: "New plant added successfully" });
-    }
+    return NextResponse.json(plants);
   } catch (error) {
-    return NextResponse.json(
-      { error: error },
-      { status: 500 }
-    );
+    console.error(error);
+    return NextResponse.json({ error: "Error fetching plants" }, { status: 500 });
   }
 }
+
+
+// export async function POST(request: NextRequest) {
+//   try {
+//     const client = await clientPromise;
+//     const db = client.db("Pvz2");
+//     const plantCollection = db.collection("plants");
+//     const data = await request.json();
+
+//     if (!data.plantName || !data.packets) {
+//       return NextResponse.json(
+//         { error: "Missing plant name or packets" },
+//         { status: 400 }
+//       );
+//     }
+
+//     //find the plant that matches the plant name
+//     const existingPlant = await plantCollection.findOne({
+//       plantName: data.plantName,
+//     });
+
+//     if (existingPlant) {
+//       const updatedPackets: number =
+//         (existingPlant.totalPackets || 0) + Number(data.packets);
+//       await plantCollection.updateOne(
+//         { _id: existingPlant._id },
+//         { $set: { totalPackets: updatedPackets } }
+//       );
+//       return NextResponse.json({ message: "Packets updated successfully" });
+//     }
+//     //Handle the non-existing plant
+//     else {
+//       await plantCollection.insertOne({
+//         plantName: data.plantName,
+//         packets: Number(data.packets),
+//         totalPackets: Number(data.packets), // Initialize totalPackets here
+//       });
+//       return NextResponse.json({ message: "New plant added successfully" });
+//     }
+//   } catch (error) {
+//     return NextResponse.json(
+//       { error: error },
+//       { status: 500 }
+//     );
+//   }
+// }

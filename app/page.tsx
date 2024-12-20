@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Search from "./components/Search";
 import { User } from "./Constants/constants";
+import ViewUserPacketsSearch from "./components/ViewUserPacketsSearch";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -41,7 +42,7 @@ const Home = async () => {
       <h1 className="text-3xl font-bold">Welcome to Seed packet counter!</h1>
 
       <AddSeedPackets />
-      <Search />
+      <ViewUserPacketsSearch />
     </div>
   ) : (
     <div>

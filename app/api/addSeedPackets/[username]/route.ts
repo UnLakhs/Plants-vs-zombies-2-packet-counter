@@ -84,6 +84,7 @@ export async function POST(
     ) as Plant;
     let newTotalPackets: number;
 
+
     if (existingPlant) {
       newTotalPackets = existingPlant.totalPackets + Number(packets);
 
@@ -99,7 +100,7 @@ export async function POST(
       );
     } else {
       newTotalPackets = Number(packets);
-
+      const imagePath = `${plantName.toLowerCase().replace(/\s+/g, '_')}.png`;
       // Add a new plant
       await db.collection<Document>("users").updateOne(
         { username },
@@ -109,6 +110,7 @@ export async function POST(
               plantName,
               packets: Number(packets),
               totalPackets: newTotalPackets,
+              image: imagePath,
             },
           },
         }
