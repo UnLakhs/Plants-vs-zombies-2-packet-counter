@@ -5,8 +5,6 @@ import { cookies } from "next/headers";
 //Components
 import AddSeedPackets from "./components/AddSeedPackets";
 import Image from "next/image";
-import Link from "next/link";
-import Search from "./components/Search";
 import { User } from "./Constants/constants";
 import ViewUserPacketsSearch from "./components/ViewUserPacketsSearch";
 

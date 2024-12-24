@@ -3,7 +3,7 @@ interface plantCardsProps {
   plants: Plant[];
 }
 
-const PlantCards = ({plants}: plantCardsProps) => {
+const UserPlantCards = ({plants}: plantCardsProps) => {
 
   return (
     <div className="grid grid-cols-5 gap-6">
@@ -20,10 +20,13 @@ const PlantCards = ({plants}: plantCardsProps) => {
               className="w-full h-full object-cover"
             />
           </div>
+          <span className="text-xl font-semibold">
+            Total Packets: {plant.totalPackets}
+          </span>
         </div>
       ))}
     </div>
   );
 };
 
-export default PlantCards;
+export default UserPlantCards;

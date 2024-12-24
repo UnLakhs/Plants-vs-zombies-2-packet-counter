@@ -5,6 +5,7 @@ import PlantCards from "./PlantCards";
 
 import { CiSearch } from "react-icons/ci";
 import OrderBy from "./OrderBy";
+import UserPlantCards from "./UserPlantCards";
 
 const ViewUserPacketsSearch = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -69,7 +70,7 @@ const ViewUserPacketsSearch = () => {
         </div>
       </div>
       {/* Render filtered plant cards */}
-      <PlantCards plants={filteredPlants} />
+      <UserPlantCards plants={filteredPlants} />
     </div>
   ) : (
     <div>
