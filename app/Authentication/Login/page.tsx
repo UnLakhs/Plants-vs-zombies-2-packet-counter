@@ -52,9 +52,9 @@ const Login = () => {
     }
   };
   return (
-    <div className="flex justify-center text-center h-screen">
-      <form onSubmit={handleSubmit} className="shadow-xl shadow-green-600">
-        <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
+    <div className="flex flex-col h-screen justify-center items-center gap-8 text-center">
+      <form onSubmit={handleSubmit} className="shadow-xl p-12 bg-[#3c7836] shadow-black">
+        <h1 className="text-2xl font-bold mb-4">Sign In</h1>
         {errorMessage && (
           <div className="mb-4 text-red-500">{errorMessage}</div>
         )}
@@ -93,7 +93,9 @@ const Login = () => {
           Log in
         </button>
       </form>
-      <Link href={"/Authentication/SignUp"}>Don&apos;t have an account? Sign Up!</Link>
+      <Link className="bg-[#468d3f] rounded-md text-lg font-semibold text-black p-2" href={"/Authentication/SignUp"}>
+        Don&apos;t have an account? Sign Up!
+      </Link>
     </div>
   );
 };

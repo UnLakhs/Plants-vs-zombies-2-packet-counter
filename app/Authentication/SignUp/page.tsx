@@ -57,8 +57,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center text-center h-screen">
-      <form onSubmit={handleSubmit} className="shadow-xl shadow-green-600">
+    <div className="flex flex-col h-screen justify-center items-center gap-8 text-center">
+       <form onSubmit={handleSubmit} className="shadow-xl p-12 bg-[#3c7836] shadow-black">
         <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
         {errorMessage && (
           <div className="mb-4 text-red-500">{errorMessage}</div>
@@ -112,9 +112,10 @@ const SignUp = () => {
           Sign Up
         </button>
       </form>
-      <div className="p-2 rounded-full hover:opacity-80 transition duration-200 mt-4 bg-green-400">
-        <Link className="font-bold" href={`/Authentication/Login`}>Already have an account? Log in!</Link>
-      </div>
+
+      <Link className="bg-[#468d3f] rounded-md text-lg font-semibold text-black p-2" href={`/Authentication/Login`}>
+      Already have an account? Log in!
+      </Link>
     </div>
   );
 };
