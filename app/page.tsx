@@ -37,7 +37,7 @@ const Home = async () => {
         />
       </div>
 
-      <h1 className="text-3xl font-bold">Welcome to Seed packet counter!</h1>
+      <h1 className="text-3xl text-black font-bold">Welcome to Seed packet counter!</h1>
 
       <AddSeedPackets />
       <ViewUserPacketsSearch />

@@ -103,7 +103,7 @@ const AddSeedPackets = () => {
           className="text-black relative w-full max-w-md"
         >
           <div className="mb-4">
-            <label htmlFor="plantName" className="block font-bold mb-2">
+            <label htmlFor="plantName" className="block font-semibold mb-2 text-black">
               Plant Name:
             </label>
             <input
@@ -132,7 +132,7 @@ const AddSeedPackets = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="packets" className="block font-bold mb-2">
+            <label htmlFor="packets" className="block font-semibold mb-2 text-black">
               Number of Packets:
             </label>
             <input

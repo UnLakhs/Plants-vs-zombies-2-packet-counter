@@ -27,7 +27,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className="bg-green-400 p-4">
+    <nav className="bg-[#55a94c] p-4">
       <div className="flex flex-row gap-12 text-lg">
         <Link href={`/ViewPlants`}>Plants</Link>
         <Link href={`/`}>View your seed packets</Link>
