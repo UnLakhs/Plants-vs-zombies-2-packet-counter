@@ -54,11 +54,11 @@ const ViewUserPacketsSearch = () => {
 
   return user ? (
     <div className="flex flex-col justify-between">
-      <div className="flex items-center mb-4">
-        <div className="mr-auto rounded flex py-2 px-3 w-2/3 max-w-sm">
+      <div className="flex flex-col gap-8 lg:gap-0 lg:flex-row items-center mb-12 lg:mb-4">
+        <div className="lg:mr-auto ml-4 md:ml-32 lg:ml-0 rounded flex py-2 px-3 w-2/3 max-w-sm">
           <OrderBy onOrderChange={setOrder} />
         </div>
-        <div className="flex items-center rounded-full bg-white p-4">
+        <div className="flex items-center rounded-full bg-white p-2 md:p-4">
           <input
             placeholder="Search..."
             type="text"

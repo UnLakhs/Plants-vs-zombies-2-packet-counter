@@ -36,14 +36,14 @@ const NavBar = () => {
       {/* Menu Items */}
       <div
         className={`${
-          isMenuOpen ? "flex flex-col gap-2" : "hidden"
-        } bg-[#55a94c] w-full lg:h-full transition-all duration-300`}
+          isMenuOpen ? "flex flex-col lg:flex-row gap-2" : "hidden"
+        } lg:flex lg:gap-8 bg-[#55a94c] w-full lg:h-full transition-all duration-300`}
       >
-        <Link href={`/ViewPlants`}>Plants</Link>
-        <Link href={`/`}>View your seed packets</Link>
-        {user?.isAdmin && <Link href={`/addPlantData`}>Add plant data</Link>}
+        <Link className="text-xl font-semibold" href={`/ViewPlants`}>Plants</Link>
+        <Link className="text-xl font-semibold" href={`/`}>View your seed packets</Link>
+        {user?.isAdmin && <Link className="text-xl font-semibold" href={`/addPlantData`}>Add plant data</Link>}
         {user ? (
-          <span>Welcome {user?.username}</span>
+          <span className="text-xl font-semibold">Welcome {user?.username}</span>
         ) : (
           <Link href={`/Authentication/Login`}>Log In</Link>
         )}
