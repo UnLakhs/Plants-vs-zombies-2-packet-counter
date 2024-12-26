@@ -23,7 +23,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className="bg-[#55a94c] p-4 w-screen transition-all duration-300">
+    <nav className="bg-[#3c7836] p-4 w-screen transition-all duration-300">
       <div className="flex justify-between items-center p-2">
         {/* Burger Menu Icon */}
         <button
@@ -37,7 +37,7 @@ const NavBar = () => {
       <div
         className={`${
           isMenuOpen ? "flex flex-col lg:flex-row gap-2" : "hidden"
-        } lg:flex lg:gap-8 bg-[#55a94c] w-full lg:h-full transition-all duration-300`}
+        } lg:flex lg:gap-8 bg-[#3c7836] w-full lg:h-full transition-all duration-300`}
       >
         <Link className="text-xl font-semibold" href={`/ViewPlants`}>Plants</Link>
         <Link className="text-xl font-semibold" href={`/`}>View your seed packets</Link>
@@ -45,7 +45,7 @@ const NavBar = () => {
         {user ? (
           <span className="text-xl font-semibold">Welcome {user?.username}</span>
         ) : (
-          <Link href={`/Authentication/Login`}>Log In</Link>
+          <Link className="text-xl font-semibold" href={`/Authentication/Login`}>Log In</Link>
         )}
       </div>
     </nav>
