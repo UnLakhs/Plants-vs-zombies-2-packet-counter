@@ -26,8 +26,8 @@ const getUser = async () => {
 const Home = async () => {
   const user = await getUser();
   return user ? (
-    <div className="flex flex-col items-center h-screen justify-between space-y-4">
-      <div className="w-32 h-32 absolute top-16 left-2 z-50">
+    <div className="flex flex-col items-center w-full h-screen justify-between space-y-4">
+      <div className="hidden lg:block w-32 h-32 absolute sm:top-16 sm:left-2 z-50">
         <Image
           src={`/assets/images/logo.png`}
           layout="fill"
@@ -43,8 +43,8 @@ const Home = async () => {
       <ViewUserPacketsSearch />
     </div>
   ) : (
-    <div>
-      <span>You need to be logged in to insert and see seed packets</span>
+    <div className="flex flex-col items-center justify-center h-screen space-y-4">
+      <span className="font-bold text-4xl">You need to be logged in to insert and see seed packets</span>
     </div>
   );
 };

@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`antialiased h-screen bg-[#3a6b35] overflow-x-hidden`}
+        className={`antialiased h-screen  bg-[#3a6b35] overflow-x-hidden`}
       >
         <NavBar />
         {children}
