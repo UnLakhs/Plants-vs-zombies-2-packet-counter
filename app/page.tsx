@@ -27,7 +27,7 @@ const Home = async () => {
   const user = await getUser();
   return user ? (
     <div className="flex flex-col items-center w-full h-screen justify-between space-y-4">
-      <div className="hidden lg:block w-32 h-32 absolute sm:top-16 sm:left-2 z-50">
+      {/* <div className="hidden lg:block w-32 h-32 absolute sm:top-20 sm:left-2 z-50">
         <Image
           src={`/assets/images/logo.png`}
           layout="fill"
@@ -35,16 +35,20 @@ const Home = async () => {
           alt="logo"
           className="z-10"
         />
-      </div>
+      </div> */}
 
-      <h1 className="text-3xl text-black font-bold">Welcome to Seed packet counter!</h1>
+      <h1 className="text-3xl text-black font-bold">
+        Welcome to Seed packet counter!
+      </h1>
 
       <AddSeedPackets />
       <ViewUserPacketsSearch />
     </div>
   ) : (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
-      <span className="font-bold text-4xl">You need to be logged in to insert and see seed packets</span>
+      <span className="font-bold text-4xl">
+        You need to be logged in to insert and see seed packets
+      </span>
     </div>
   );
 };
